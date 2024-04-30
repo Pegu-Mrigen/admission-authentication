@@ -29,7 +29,7 @@ export const isAdminAuthenticated = catchAsyncErrors(async (req, res, next) => {
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const token = req.cookies.studentToken;
   if (!token) {
-    return next(new ErrorHandler("Please login to fill the formm!", 400));
+    return next(new ErrorHandler("Please login to fill the admission form!", 400));
   }
   const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
   req.student = await Student.findById(decoded.id);

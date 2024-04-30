@@ -14,32 +14,87 @@ export const postAdmission = catchAsyncErrors(async (req, res, next) => {
     mothersName,
     localGuardian,
     category,
-    course,
+    courseName,
     dob,
     religion,
     nationality,
     bloodGroup,
     gender,
-
     wasStudent,
     presentAddress,
     permanentAddress,
+    courseType,
   } = req.body;
   if (
-    !firstName
-    //|| !lastName ||
-    // !email ||
-    // !phone ||
-    // !bloodGroup ||
-    // !gender ||
-    // !dob ||
-    // !course ||
-    // !firstName ||
-    // !lastName ||
-    // !presentAddress
-  ) {
-    return next(new ErrorHandler("Please Fill Full Form!", 400));
-  }
+    !firstName ) {
+      return next(new ErrorHandler("Please Fill firstName!", 400));
+    }
+  if (
+    !lastName ) {
+      return next(new ErrorHandler("Please Fill lastName!", 400));
+    }
+  if (
+    !email ) {
+      return next(new ErrorHandler("Please Fill email!", 400));
+    }
+  if (
+    !phone ) {
+      return next(new ErrorHandler("Please Fill phone!", 400));
+    }
+  if (
+    !sex ) {
+      return next(new ErrorHandler("Please Fill sex!", 400));
+    }
+  if (
+    !dob ) {
+      return next(new ErrorHandler("Please Fill dob!", 400));
+    }
+  if (
+    !religion ) {
+      return next(new ErrorHandler("Please Fill religion!", 400));
+    }
+  if (
+    !nationality ) {
+      return next(new ErrorHandler("Please Fill nationality!", 400));
+    }
+  if (
+    !presentAddress ) {
+      return next(new ErrorHandler("Please Fill presentAddress!", 400));
+    }
+  if (
+    !permanentAddress ) {
+      return next(new ErrorHandler("Please Fill permanentAddress!", 400));
+    }
+  if (
+    !fathersName ) {
+      return next(new ErrorHandler("Please Fill fathersName!", 400));
+    }
+  if (
+    !mothersName ) {
+      return next(new ErrorHandler("Please Fill mothersName!", 400));
+    }
+  if (
+    !category ) {
+      return next(new ErrorHandler("Please Fill category!", 400));
+    }
+  if (
+    !localGuardian ) {
+      return next(new ErrorHandler("Please Fill localGuardian!", 400));
+    }
+  if (
+    !courseName ) {
+      return next(new ErrorHandler("Please Fill courseName!", 400));
+    }
+ 
+  
+  
+  //   !category ||
+  //   !localGuardian ||
+  //   !courseName ||
+  //   !courseType 
+  // ) {
+  //   return next(new ErrorHandler("Please Fill all the Fields!", 400));
+  // }
   // const isConflict = await User.find({
   //   firstName: firstName,
   //   lastName: lastName,
@@ -69,7 +124,7 @@ export const postAdmission = catchAsyncErrors(async (req, res, next) => {
     mothersName,
     localGuardian,
     category,
-    course,
+    courseName,
     dob,
     religion,
     nationality,
@@ -78,6 +133,7 @@ export const postAdmission = catchAsyncErrors(async (req, res, next) => {
     wasStudent,
     presentAddress,
     permanentAddress,
+    courseType,
   });
   res.status(200).json({
     success: true,

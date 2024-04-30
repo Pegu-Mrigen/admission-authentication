@@ -5,18 +5,15 @@ import cloudinary from "cloudinary";
 import { generateToken } from "../utils/jwtToken.js";
 
 export const studentRegister = catchAsyncErrors(async (req, res, next) => {
-  const { firstName, lastName, email, phone, dob, password } = req.body;
-  //const { firstName, email} = req.body;
+  const { firstName, lastName, email, phone, confirmPassword, password } =
+    req.body;
   if (
     !firstName ||
-    // ||
-    // !lastName
-    !email
-    // !phone ||
-    // !dob ||
-    // !gender ||
-    // !password ||
-    // !confirmPassword
+    !lastName ||
+    !email ||
+    !phone ||
+    !password ||
+    !confirmPassword
   ) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
@@ -25,25 +22,26 @@ export const studentRegister = catchAsyncErrors(async (req, res, next) => {
   if (isRegistered) {
     return next(new ErrorHandler("student already Registered!", 400));
   }
-  // if (confirmPassword !== password ) {
-  //   return next(new ErrorHandler("Password is not same with Confirm password !", 400));
-  // }
+  if (confirmPassword !== password) {
+    return next(
+      new ErrorHandler("Password is not same with Confirm password !", 400)
+    );
+  }
 
   const student = await Student.create({
     firstName,
-    // lastName,
+    lastName,
     email,
-    // phone,
-    // dob,
-
-     password,
-    //role: "Student",
+    phone,
+    confirmPassword,
+    password,
+    role: "Student",
   });
   generateToken(student, "Student Registered!", 200, res);
 });
 
 export const login = catchAsyncErrors(async (req, res, next) => {
-  const { email, password , confirmPassword} = req.body;
+  const { email, password, confirmPassword } = req.body;
   if (!email || !password) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
@@ -58,7 +56,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Email!", 400));
   }
 
-  const isPasswordMatch = await student.comparePassword(password);
+  const isPasswordMatch = await student.comparePassword(password); //"comparePassword" METHOD IS CREATED INSIDE STUDENTSCHEMA
   if (!isPasswordMatch) {
     return next(new ErrorHandler("Invalid  Password!", 400));
   }
@@ -135,8 +133,6 @@ export const logoutAdmin = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
-
-
 export const logoutStudent = catchAsyncErrors(async (req, res, next) => {
   res
     .status(201)
@@ -149,4 +145,3 @@ export const logoutStudent = catchAsyncErrors(async (req, res, next) => {
       message: "Student Logged Out Successfully.",
     });
 });
-

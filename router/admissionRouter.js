@@ -14,8 +14,8 @@ import {
 
 const router = express.Router();
 
- //router.post("/post", isStudentAuthenticated, postAdmission);
-router.post("/post", postAdmission);
+ router.post("/post", isAuthenticated, postAdmission);
+//router.post("/post", postAdmission);
 router.post("/courseType", addNewCourse);
 router.get("/getall", isAdminAuthenticated, getAllAdmissions);
 router.put("/update/:id", isAdminAuthenticated, updateAdmissionStatus);
